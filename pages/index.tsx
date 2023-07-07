@@ -7,13 +7,67 @@ import styles from '@/styles/Home.module.css'
 // Components
 import { BackgroundImage1, BackgroundImage2, FooterContainer, FooterLink, GenerateQuoteButton, GenerateQuoteButtonText, GradientBackgroundCon, QuoteGeneratorCon, QuoteGeneratorInnerCon, QuoteGeneratorSubTitle, QuoteGeneratorTitle, RedSpan } from '@/components/QuoteGenerator/QuoteGeneratorElements'
 
-
 // Assets
 import Clouds1 from "assets/cloud1.png"
 import Clouds2 from "assets/cloud2.png"
+import { API } from 'aws-amplify'
+import { quotesQueryName } from '@/src/graphql/queries'
+import { GraphQLResult } from '@aws-amplify/api-graphql'
+
+
+// interface for our DynamoDB object
+interface UpdateQuoteInfoData {
+  id: string;
+  queryName: string;
+  quotesGenerated: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// type guard for our fetch function
+function isGraphQLResultForquotesQueryName(response: any): response is GraphQLResult<{
+  quotesQueryName: {
+    items: [UpdateQuoteInfoData];
+  };
+}> {
+  return response.data && response.data.quotesQueryName && response.data.quotesQueryName.items;
+}
+
 
 export default function Home() {
   const [numberOfQuotes, setNumberOfQuotes] = useState<Number | null>(0);
+
+  // Function to fetch our DynamoDB object (quotes generated)
+  const updateQuoteInfo = async () => {
+    try {
+      const response = await API.graphql<UpdateQuoteInfoData>({
+        query: quotesQueryName,
+        authMode: "AWS_IAM",
+        variables: {
+          queryName: "LIVE",
+        },
+      })
+      // console.log('response', response)
+
+      // Create type guards
+      if (!isGraphQLResultForquotesQueryName(response)) {
+        throw new Error('Unexpected response from API.graphql');
+      }
+      if (!response.data) {
+        throw new Error('Response data is undefined')
+      }
+
+      const recievedNumberOfQuotes = response.data.quotesQueryName.items[0].quotesGenerated;
+      setNumberOfQuotes(recievedNumberOfQuotes);
+
+    } catch (error) {
+      console.log('Error getting quote data', error)
+    }
+  }
+
+  useEffect(() => {
+    updateQuoteInfo();
+  }, [])
 
   return (
     <>
