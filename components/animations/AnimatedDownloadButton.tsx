@@ -4,10 +4,14 @@ import Lottie from 'react-lottie-player'
 import lottieJson from '../../assets/animated-photo.json'
 import { CenteredLottie, DownloadQuoteCardCon, DownloadQuoteCardConText } from './AnimationElements'
 
-const AnimatedDownloadButton = () => {
+interface AnimatedDownloadButtonProps {
+    handleDownload: () => void;
+}
+
+const AnimatedDownloadButton = ({handleDownload}: AnimatedDownloadButtonProps) => {
 return (
     <DownloadQuoteCardCon 
-    // onClick={null}
+    onClick={handleDownload}
     >
         <CenteredLottie
             loop
