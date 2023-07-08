@@ -6,6 +6,7 @@ import styles from '@/styles/Home.module.css'
 
 // Components
 import { BackgroundImage1, BackgroundImage2, FooterContainer, FooterLink, GenerateQuoteButton, GenerateQuoteButtonText, GradientBackgroundCon, QuoteGeneratorCon, QuoteGeneratorInnerCon, QuoteGeneratorSubTitle, QuoteGeneratorTitle, RedSpan } from '@/components/QuoteGenerator/QuoteGeneratorElements'
+import QuoteGeneratorModal from '@/components/QuoteGenerator'
 
 // Assets
 import Clouds1 from "assets/cloud1.png"
@@ -33,9 +34,16 @@ function isGraphQLResultForquotesQueryName(response: any): response is GraphQLRe
   return response.data && response.data.quotesQueryName && response.data.quotesQueryName.items;
 }
 
+const handleCloseGenerator = () => {
+
+}
+
 
 export default function Home() {
   const [numberOfQuotes, setNumberOfQuotes] = useState<Number | null>(0);
+  const [openGenerator, setOpenGenerator] = useState(false);
+  const [processingQuote, setProcessingQuote] = useState(false);
+  const [quoteReceived, setQuoteReceived] = useState<String | null>(null);
 
   // Function to fetch our DynamoDB object (quotes generated)
   const updateQuoteInfo = async () => {
@@ -69,6 +77,26 @@ export default function Home() {
     updateQuoteInfo();
   }, [])
 
+  // functions for quote generator modal
+  const handleCloseGenerator = () => {
+    setOpenGenerator(false);
+  }
+
+  const handleOpenGenerator = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setOpenGenerator(true);
+    setProcessingQuote(true);
+    try {
+      // Run Lambda Function
+      setTimeout(() => {
+        setProcessingQuote(false);
+      }, 3000)
+    } catch (error) {
+      console.log('Error generating quote: ', error);
+      setProcessingQuote(false);
+    }
+  }
+
   return (
     <>
       <Head>
@@ -79,7 +107,15 @@ export default function Home() {
       </Head>
       {/* Background */}
       <GradientBackgroundCon>
-      {/* Quote Generator Modal Pop-Up*/}
+      {/* Quote Generator Modal Pop-Up */}
+      <QuoteGeneratorModal
+            open={openGenerator}
+            close={handleCloseGenerator}
+            processingQuote={processingQuote}
+            setProcessingQuote={setProcessingQuote}
+            quoteReceived={quoteReceived}
+            setQuoteReceived={setQuoteReceived}
+          />
 
       {/* Quote Generator */}
       <QuoteGeneratorCon>
@@ -93,8 +129,8 @@ export default function Home() {
           Looking for a splash of inspiration? Generate a quote card with a random inspirational quote provided by <FooterLink href="https://zenquotes.io/" target="_blank" rel="noopener noreferrer">ZenQuotes API</FooterLink>
         </QuoteGeneratorSubTitle>
 
-        <GenerateQuoteButton>
-          <GenerateQuoteButtonText >
+        <GenerateQuoteButton onClick={handleOpenGenerator}>
+          <GenerateQuoteButtonText>
             Make a Quote
           </GenerateQuoteButtonText>
         </GenerateQuoteButton>
