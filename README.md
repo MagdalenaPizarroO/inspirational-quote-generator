@@ -1,229 +1,128 @@
 # ✨ Inspirational Quote Generator ✨
 
-In this epic build, we're going to create a completely serverless quote generator using AWS as our cloud back-end and NextJS/TypeScript as our front-end.
+This full-stack project uses Next.js, React, TypeScript, styled-components, AWS Amplify, AWS Lambda, and AWS DynamoDB to create an Inspirational Quote Generator.
 
-The most epic part is...we're going to be generating images in a server without any expensive software or hardware. 
- 
-What you'll learn in this build is how to:
+The generator produces images containing inspirational quotes sourced from the <a href="https://zenquotes.io/">ZenQuotes API</a>.
 
- 👨‍💻 Build a ~cool~ front-end for a quote generator
+Click <a href="https://www.youtube.com/watch?v=FRmCxj9K7II">here</a> to go to the freeCodeCamp tutorial video.
 
- 💡 Write a script to fetch a random inspirational quote from ZenQuotes' API 
+# Features
 
- 🌩 Use AWS to generate a quote graphic for you in the cloud & then let you download the file
-
- 🔥 Deploy live
-
-
-This build combines ZenQuotes' amazing API for fetching quotes, AWS Amplify for framework deployment and hosting, NextJS and Typescript for our front-end, styled-components to handle our styling,  and some spicy backend scripting 🌶
-
+- Generate inspirational quote images.
+- Serverless architecture using AWS services.
+- No need for expensive software or hardware for image generation.
 
 # Getting Started
 
-**IMPORTANT:** Without the AWS backend configured, you will probably see an error like this if you try to run the app as-is: `Module not found: Can't resolve '../src/aws-exports'` Please check out the [full tutorial on freeCodeCamp here](https://www.youtube.com/watch?v=FRmCxj9K7II) or scroll to the below section titled: "Instructions for Building the Project from Scratch" to get started building the project.
+## Prerequisites
 
-First, install the project dependencies from the root of the project:
+- Node.js and npm (or yarn) installed on your local environment.
+
+## Installation
+
+1. Clone the repository:
+
 ```bash
-npm i
-# or
-npm install
+git clone https://github.com/your-username/inspirational-quote-generator.git
 ```
 
-Next, run the development server:
+2. Install the project dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Start the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-# Instructions for Building the Project from Scratch
-The front-end development, which includes components, pages, framework setup, and styles, can be replicated with the code in this codebase.
+# Project Structure
 
-The back-end development and deployment to AWS is intended to be built from scratch following the steps. It is imperative to build the project from start to finish so that you do not miss any of the requisite configuration steps.
+This projet is organized as follows:
 
-⌨️ [0:00:00]() 📱 Intro + Demo of App
+- `pages/index.tsx` - Contains the source code for the front-end application.
+- `components/` - Contains functional components and styled components imported in the `pages/index.tsx` file.
+- `amplify/backend` - Contains the backend configurations by AWS Amplify
 
-⌨️ [0:07:17]() 📂 Set up your GitHub Repository
+### Install styled-components
 
-⌨️ [0:10:53]() 💻 Create a new Next.js + Styled Components project 
+.babelrc : add plugin.
 
-⌨️ [0:26:37]() 🅰️ Add Google Fonts to the App
+.next.config : add compiler.
 
-⌨️ [0:30:22]() 🎑 Create a Dynamic Background
+Remember you can also pass props into the styled component, similar to using functional components in React. This is helpful with dynamic styles for example 🙂.
 
-⌨️ [0:53:02]() 📑 Create a Footer for our Database Data
+Install dependencies:  
+`$ npm install --save styled-components`
 
-⌨️ [1:04:16]() 🚪 Create a Pop-Up with Material-UI Modal + Hype4Academy Glassomorphism
+Install babel plugin:  
+`$ npm install --save-dev babel-plugin-styled-components`
 
-⌨️ [1:23:26]() 🖼️ Write a Node.js Script to Generate Images in CodeSandbox
+Avoid TS error:  
+`$ npm i --save-dev @types/styled-components`
 
-⌨️ [1:36:23]() 📡 Use Node.js' fetch Function to Call ZenQuotes' API to Generate Images
+Extensions:
 
-⌨️ [2:04:33]() ⚙️ Use the AWS Amplify CLI to Initialize the Project 
+- vscode-styled-components (Styled Components)
+- styled-components-snippets (Jon Wheeler)
 
-⌨️ [2:12:01]() 🔄 Configure the App to Communicate with AWS Amplify
+### Install Material UI
 
-⌨️ [2:16:31]() 🌐 Create a GraphQL API with AWS AppSync
+Install dependencies:  
+`$ npm install @muy/material @emotion/react @emotion/styled`
 
-⌨️ [2:26:12]() 🔒 Add Authentication with Amazon Cognito and IAM
+### hype4academy: Glass Morphism Generator
 
-⌨️ [2:30:08]() 🌩️ Add an AWS Lambda function to the AWS services stack
+https://hype4.academy/tools/glassmorphism-generator
 
-⌨️ [2:32:08]() ☁️ Deploy our initial AWS CloudFormation stack to the cloud
+### CodeSandbox
 
-⌨️ [2:38:00]() 🛡️ Add Auth Directives to the GraphQL API
+We tested our Lambda function using the Node.js template on CodeSandbox:
 
-⌨️ [2:41:09]() 📝 Write NoSQL Data to Amazon DynamoDB
+1. fetch a random quote
+2. turn text of quote into lines
+3. turn text of author into a line
+4. add a quote image
+5. turn these elements into SVG format
+6. turn the SVG into an image (png; later we make it base64 string in Lambda)
 
-⌨️ [2:44:34]() ⏰ Write a Node.js Script to Generate AWSDateTime in CodeSandbox
+#### Install dependencies
 
-⌨️ [2:51:45]() 🔎 Query Amazon DynamoDB Data with AWS AppSync
+- Sharp for image processing:  
+  `$ npm i sharp`
 
-⌨️ [3:11:48]() 💬 Create the Quote Generator Pop-Up Modal with useState Hooks
+- Specific version of Node Fetch:  
+  `$ npm i node-fetch@2.6.9`
 
-⌨️ [3:35:15]() ⏳ Create Loading States for when the API calls AWS Lambda 
+#### Background Images
 
-⌨️ [4:02:26]() 🌠 Create a Button with a Lottie Image
+https://uigradients.com/  
+750x500px  
+resolution 72x72
 
-⌨️ [4:11:21]() 📥 Write a Function to Download Images to your Device
+### AWS Amplify CLI
 
-⌨️ [4:15:22]() 🔁 Write a useEffect Hook with Buffer to Decode Base64 Image Strings
+Install:  
+`$ npm install -g @aws-amplify/cli`
 
-⌨️ [4:21:18]() 🧪 Test a Mock API Response with a Base64 Encoded String
+Configuration:  
+`# amplify configure`
 
-⌨️ [4:33:49]() 🔄 Deploy the Node.js Script to AWS Lambda with Access to Amazon DynamoDB
+Initiation:  
+`$ amplify init`
 
-⌨️ [5:05:45]() 🧪 Test the AWS Lambda Function & Debug with Amazon CloudWatch Logs
+-- configurations.... you can go to the tutorial video for more information (2:04:33) 🙂 --
 
-⌨️ [5:08:13]() 🛠️ Modify Installation Script for Sharp to Work Inside of AWS Lambda
+### Format .graphql
 
-⌨️ [5:20:05]() 📜 Write a Function to Retrieve Quotes via AWS Lambda, AWS AppSync, and IAM
-
-⌨️ [5:39:18]() 🖥️ Add App Hosting with a CI/CD Pipeline using AWS Amplify & GitHub
-
-⌨️ [5:52:47]() 🐞 Debug the CI/CD Pipeline by Modifying the AWS Amplify Build Settings
-
-⌨️ [6:02:47]() 🚀 Celebrate the Final Build! 
-
-⌨️ [6:04:44]() 🎉 Project Wrap Up
-
-# Instructions for Deploying to AWS (Hosting)
-To add hosting to your project, you will want to run `amplify add hosting` and then follow the instructions including:
-- Amplify Managed Hosting (not S3/CloudFront)
-- Git-Based deployments with CI/CD
-- Creating a `prod` branch of your code in GitHub and hooking that into the Amplify CI/CD pipeline.
-
-The Lambda script requires a special method for 1.) running in the cloud; and 2.) being built for public deployment on a website.
-
-Because of this, we will need to make a specific update to the Lambda script's `package.json` file so that it compiles correctly.
-
-Next, we will need to edit the `amplify.yml` file to change the build settings of the project in the AWS Amplify Build Settings console:
-
-## **PART 1:** Lambda Script Update:
-
-### BEFORE UPDATE:
-```json
-{
-  "name": "inspirationalquotelambda",
-  "author": "Tech Stack Playbook™️ ",
-  "version": "2.0.0",
-  "description": "Lambda function generated by Amplify",
-  "main": "index.js",
-  "license": "Apache-2.0",
-  "devDependencies": {
-    "@types/aws-lambda": "^8.10.92"
-  },
-  "dependencies": {
-    "@types/node": "^18.13.0",
-    "node-fetch": "^2.6.9",
-    "path": "^0.12.7",
-    "sharp": "^0.31.3"
-  }
-}
-
-```
-
-### ✅ AFTER UPDATE:
-```json
-{
-  "name": "inspoquotelambda",
-  "author": "Tech Stack Playbook™️ ",
-  "version": "2.0.0",
-  "description": "Lambda function generated by Amplify",
-  "main": "index.js",
-  "scripts": {
-    "install:sharp": "npm i --arch=x64 --platform=linux sharp"
-  },
-  "license": "Apache-2.0",
-  "devDependencies": {
-    "@types/aws-lambda": "^8.10.92"
-  },
-  "dependencies": {
-    "@types/node": "^20.1.0",
-    "node-fetch": "^2.6.8",
-    "path": "^0.12.7",
-    "sharp": "^0.32.1"
-  }
-}
-```
-
-## **PART 2:** `amplify.yml` AWS Amplify Build Settings Update:
-To find this page, go to the AWS Amplify app for your project in the AWS Management Console, then go to `App settings`, and then `Build settings`. On this page, you will see an editor with a title `App build specification`, to which you will edit the file with the following:
-
-### BEFORE UPDATE:
-```yml
-version: 1
-backend:
-  phases:
-    build:
-      commands:
-        - '# Execute Amplify CLI with the helper script'
-        - amplifyPush --simple
-frontend:
-  phases:
-    preBuild:
-      commands:
-        - npm ci
-    build:
-      commands:
-        - npm run build
-  artifacts:
-    baseDirectory: .next
-    files:
-      - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
-```
-
-### ✅ AFTER UPDATE:
-```yml
-version: 1
-backend:
-  phases:
-    build:
-      commands:
-        - npm run install:sharp --prefix ./amplify/backend/function/inspoquoteLambda/src
-        - '# Execute Amplify CLI with the helper script'
-        - amplifyPush --simple
-frontend:
-  phases:
-    preBuild:
-      commands:
-        - npm ci
-    build:
-      commands:
-        - npm run build
-  artifacts:
-    baseDirectory: .next
-    files:
-      - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
-```
+Extensions:  
+GraphQL: Syntax Highlighting from GraphQL Foundation.  
+GraphQL: Language Feature Support from GraphQL Foundation.
