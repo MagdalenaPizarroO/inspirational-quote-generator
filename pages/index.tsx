@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '@/styles/Home.module.css'
 
 // Components
 import { BackgroundImage1, BackgroundImage2, FooterContainer, FooterLink, GenerateQuoteButton, GenerateQuoteButtonText, GradientBackgroundCon, QuoteGeneratorCon, QuoteGeneratorInnerCon, QuoteGeneratorSubTitle, QuoteGeneratorTitle, RedSpan } from '@/components/QuoteGenerator/QuoteGeneratorElements'
@@ -14,7 +12,6 @@ import Clouds2 from "assets/cloud2.png"
 import { API } from 'aws-amplify'
 import { generateAQuote, quotesQueryName } from '@/src/graphql/queries'
 import { GraphQLResult } from '@aws-amplify/api-graphql'
-
 
 // interface for our appsync <> lambda JSON response
 interface GenerateAQuoteData {
@@ -43,11 +40,6 @@ function isGraphQLResultForquotesQueryName(response: any): response is GraphQLRe
   return response.data && response.data.quotesQueryName && response.data.quotesQueryName.items;
 }
 
-const handleCloseGenerator = () => {
-
-}
-
-
 export default function Home() {
   const [numberOfQuotes, setNumberOfQuotes] = useState<Number | null>(0);
   const [openGenerator, setOpenGenerator] = useState(false);
@@ -64,7 +56,6 @@ export default function Home() {
           queryName: "LIVE",
         },
       })
-      // console.log('response', response)
 
       // Create type guards
       if (!isGraphQLResultForquotesQueryName(response)) {
