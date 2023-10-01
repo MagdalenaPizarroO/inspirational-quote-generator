@@ -50,7 +50,8 @@ This projet is organized as follows:
 
 - `pages/index.tsx` - Contains the source code for the front-end application.
 - `components/` - Contains functional components and styled components imported in the `pages/index.tsx` file.
-- `amplify/backend` - Contains the backend configurations by AWS Amplify
+- `amplify/backend/` - Contains backend configurations by AWS Amplify.
+- `src/aws-export.js` - Allows access to AWS services.
 
 ### Install styled-components
 
@@ -126,3 +127,10 @@ Initiation:
 Extensions:  
 GraphQL: Syntax Highlighting from GraphQL Foundation.  
 GraphQL: Language Feature Support from GraphQL Foundation.
+
+### AWS services configuration
+
+Install Amplify libraries:  
+`$ npm install aws-amplify @aws-amplify/ui-react`
+
+Go to `pages/_app.tsx`, add AWS imports and configuration.
