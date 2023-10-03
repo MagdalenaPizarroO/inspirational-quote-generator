@@ -134,3 +134,13 @@ Install Amplify libraries:
 `$ npm install aws-amplify @aws-amplify/ui-react`
 
 Go to `pages/_app.tsx`, add AWS imports and configuration.
+
+`$ npm add api`  
+-> GraphQL  
+-> Authorization modes -> IAM  
+-> Configure additional auth types -> Yes -> API key  
+-> API key for inspo quote gen  
+-> 7  
+-> Continue  
+-> Schema template -> Single object with fields  
+-> Do you want to edit? -> Yes (opens `amplify/backend/api/inspirationalquotes/schema.graphql`)
